@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gamified BMI Training</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4f8;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+    h1, h2, h3 {
+      text-align: center;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .avatar {
+      font-size: 100px;
+      text-align: center;
+      margin: 20px 0;
+    }
+    .slider-inputs, .pharmacy, .result {
+      margin-top: 20px;
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    input[type="range"] {
+      width: 100%;
+    }
+    .pharmacy button {
+      margin: 10px;
+      padding: 10px 20px;
+      border: none;
+      background: #6c63ff;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .pharmacy button:hover {
+      background: #574fd1;
+    }
+    #afterResult {
+      margin-top: 20px;
+      font-size: 1.2em;
+      text-align: center;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎯 Gamified BMI Learning Game</h1>
+
+    <div id="startScreen">
+      <label>Enter Your Name:
+        <input type="text" id="learnerName">
+      </label>
+
+      <label>Select Your Group:
+        <select id="groupSelect">
+          <option value="A">Group A</option>
+          <option value="B">Group B</option>
+          <option value="C">Group C</option>
+          <option value="D">Group D</option>
+          <option value="E">Group E</option>
+        </select>
+      </label>
+
+      <button onclick="startCase()">Start Case</button>
+    </div>
+
+    <div id="caseSection" class="hidden">
+      <h2>Welcome, <span id="learnerNameDisplay"></span>!</h2>
+      <h3>Case for <span id="groupDisplay"></span>:</h3>
+      <p id="caseDescription">[Placeholder case based on group]</p>
+      <div class="avatar" id="avatarDisplay">🧍‍♂️</div>
+
+      <div class="slider-inputs">
+        <label>Height (cm): <span id="heightVal">170</span>
+          <input type="range" id="height" min="100" max="220" value="170">
+        </label>
+        <label>Weight (kg): <span id="weightVal">70</span>
+          <input type="range" id="weight" min="30" max="200" value="70">
+        </label>
+        <button onclick="calculateBMI()">Calculate BMI</button>
+      </div>
+
+      <div class="result" id="bmiResult"></div>
+
+      <div class="pharmacy">
+        <h3>Mini Pharmacy – Select Supplement</h3>
+        <button onclick="selectSupplement('A')">Supplement A</button>
+        <button onclick="selectSupplement('B')">Supplement B</button>
+        <button onclick="selectSupplement('C')">Supplement C</button>
+      </div>
+
+      <button onclick="afterThreeMonths()">After Three Months</button>
+      <div id="afterResult"></div>
+    </div>
+  </div>
+
+  <script>
+    let chosenSupplement = "";
+    let bmiCategory = "";
+
+    function startCase() {
+      const name = document.getElementById("learnerName").value;
+      const group = document.getElementById("groupSelect").value;
+      if (!name) return alert("Please enter your name.");
+
+      document.getElementById("startScreen").classList.add("hidden");
+      document.getElementById("caseSection").classList.remove("hidden");
+
+      document.getElementById("learnerNameDisplay").textContent = name;
+      document.getElementById("groupDisplay").textContent = `Group ${group}`;
+
+      document.getElementById("caseDescription").textContent = `Placeholder description for patient case in Group ${group}. This will describe the patient's lifestyle, eating habits, and complaints.`;
+    }
+
+    document.getElementById("height").oninput = function() {
+      document.getElementById("heightVal").textContent = this.value;
+    };
+    document.getElementById("weight").oninput = function() {
+      document.getElementById("weightVal").textContent = this.value;
+    };
+
+    function calculateBMI() {
+      const height = document.getElementById("height").value;
+      const weight = document.getElementById("weight").value;
+      const heightM = height / 100;
+      const bmi = (weight / (heightM * heightM)).toFixed(1);
+
+      let category = "";
+      let emoji = "🧍‍♂️";
+
+      if (bmi < 18.5) {
+        category = "Underweight";
+        emoji = "🦴";
+      } else if (bmi < 25) {
+        category = "Healthy";
+        emoji = "💪";
+      } else if (bmi < 30) {
+        category = "Overweight";
+        emoji = "🍔";
+      } else {
+        category = "Obese";
+        emoji = "🛑";
+      }
+
+      bmiCategory = category;
+      document.getElementById("bmiResult").innerHTML = `BMI: <strong>${bmi}</strong> – ${category}`;
+      document.getElementById("avatarDisplay").textContent = emoji;
+    }
+
+    function selectSupplement(supplement) {
+      chosenSupplement = supplement;
+      alert(`You selected Supplement ${supplement}`);
+    }
+
+    function afterThreeMonths() {
+      if (!bmiCategory) {
+        alert("Please calculate BMI first.");
+        return;
+      }
+
+      // For demo, assume only Supplement B is correct if BMI is Overweight or Obese
+      let success = false;
+      if ((bmiCategory === "Overweight" || bmiCategory === "Obese") && chosenSupplement === "B") {
+        success = true;
+      }
+
+      const result = document.getElementById("afterResult");
+      if (success) {
+        document.getElementById("avatarDisplay").textContent = "😃";
+        result.textContent = "✅ Patient improved! Great job!";
+      } else {
+        document.getElementById("avatarDisplay").textContent = "😠";
+        result.textContent = "❌ Patient didn’t improve. Try again.";
+      }
+    }
+  </script>
+</body>
+</html>
