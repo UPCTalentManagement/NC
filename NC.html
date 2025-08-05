@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="تفاعل مع لعبة المكملات الغذائية واختبر معلوماتك بشكل ممتع!">
     <title>لعبة المكملات الغذائية التفاعلية</title>
     <style>
         * {
@@ -339,7 +340,7 @@
             transition: all 0.3s ease;
         }
         img{
-            max-width: 155px;
+            max-width: 119px;
         }
         .step-dot.active {
             background: white;
@@ -382,7 +383,8 @@
     <div class="container">
         <div class="header">
             <h1> لعبة المكملات الغذائية التفاعلية</h1>
-            <p>اختبر معلوماتك عن المكلات الغذائية بشكل عملى وممتع فى نفس الوقت</p>
+            <h3>اختبر معلوماتك عن المكملات الغذائية بشكل عملي وممتع في نفس الوقت</h3>
+            <p>مهمتك هى مساعدة العملاء من خلال وصف المنتجات الأنسب لأحتياجاتهم بحسب كل حالة، بحيث تقدم لهم الحل المتكامل</p>
         </div>
 
         <div class="step-indicator">
@@ -432,6 +434,7 @@
                 </div>
             </div>
             <button class="btn" onclick="proceedToBMI()">Calculate BMI 📊</button>
+            <button class="btn" onclick="proceedToPharmacy()">إلى المكملات 💊</button>
         </div>
 
         <!-- Step 3: BMI Calculator -->
@@ -473,7 +476,7 @@
                 <div id="outcome-message"></div>
             </div>
             <div class="feedback" id="final-feedback"></div>
-            <button class="btn" onclick="restart()">جرب حالة أخرى 🔄</button>
+            <button class="btn" onclick="restart()">ابدأ اللعبة من جديد🔄</button>
         </div>
     </div>
 
@@ -495,52 +498,52 @@
         const patients = {
             A: {
                 name: "سعيد",
-                emoji: "pic\\1.png",
+                emoji: "pic\\11.png",
                 age: 49,
                 height: 155,
                 weight: 150,
                 activity: "لا يمارس الرياضة",
-                lifestyle:  "سعيد يعانى من السمنة وقد وصف له الطبيب عقار MOUNJARO" ,
+                lifestyle:  "سعيد يعانى من السمنة وقد ومن أجل مساعدتة على فقدان الوزن فقد وصف له الطبيب حديثًا عقار MOUNJARO" ,
                 correctSupplements: ["L-CARNITINE", "STEVIA","JAMISON MULTI-VITAMIN","DOMPY"]
             },
             B: {
                 name: "فهد",
-                emoji: "pic\\2.png",
+                emoji: "pic\\22.png",
                 age: 43,
                 height: 175,
                 weight: 115,
-                activity: "يحاول عمل بعض التمارين البسيطة",
-                lifestyle: "فهد يعمل معلم وهو مصاب بالضغط ويريد فقدان الوزن ",
+                activity: "يحاول عمل بعض التمارين البسيطة فى أوقات الفراغ",
+                lifestyle: "فهد يعمل معلم وهو مصاب بالضغط ويحاول فقدان بعض الوزن ولكن دائما يشعر بأن شهيته مفتوحة ",
                 correctSupplements: ["SUPER FIBERS", "L-CARNITINE",  "STEVIA","JAMISON MULTI-VITAMIN"]
             },
             C: {
                 name: "ماجد",
-                emoji: "pic\\3.png",
+                emoji: "pic\\33.png",
                 age: 51,
                 height: 165,
                 weight: 115,
                 activity: "مواظب على المشى يوميًا",
-                lifestyle: "ماجد يعانى من السمنة بالاضافة إلى السكر والضغط ويستخدم عدة أدوية",
+                lifestyle: " ماجد يعانى من السمنة بالاضافة إلى السكر والضغط ويستخدم عدة أدوية نصحة الطبيب بمحاولة فقدان الوزن للحفاظ على الصحة",
                 correctSupplements: ["APLEFIT",  "STEVIA","JAMISON MULTI-VITAMIN"]
             },
             // D: {
             //     name: "سامح",
-            //     emoji: "pic\\4.png",
+            //     emoji: "pic\\44.png",
             //     age: 29,
             //     height: 179,
             //     weight: 95,
-            //     activity: "يمارس الرياضة بشكل متقطع",
+            //     activity: "يمارس الرياضة بمعدل ثلاث مرات فى الأسبوع",
             //     lifestyle: "سامح شخص يحاول المحافظة على الرياضة ولكن شهيته دائما مفتوحة ويريد فقدان بعض الوزن ليصل الى الوزن المثالى",
             //     correctSupplements: ["SUPER FIBERS", "GLAVOLEAN",  "STEVIA","JAMISON MULTI-VITAMIN"]
             // },
             D: {
                 name: "ليلى",
-                emoji: "pic\\5.png",
+                emoji: "pic\\55.png",
                 age: 39,
                 height: 165,
                 weight: 85,
-                activity:  "لا تستطيع الاتزام بنظام رياضى",
-                lifestyle:  "ليلى تحب الطعام السريع و لا تستطيع الالتزام بنظام غذاء صحى",
+                activity:  "لا تمارس الرياضة ",
+                lifestyle:  " ليلى تحب الوجبات السريعة و لا تستطيع الالتزام بنظام غذائى صحى، ونصحها الطبيب لفقدان بعض الوزن لأنها فى خطر الاصابة بمرض السكرى (مرحلة ما قبل السكرى)",
                 correctSupplements: ["FATLOSS", "APPLE CIDER",  "STEVIA","JAMISON MULTI-VITAMIN"]
             }
         };
@@ -549,13 +552,13 @@
         const supplements = {
             "DOMPY": { name: "DOMPY", icon: "pic\\dompy.png", description: "" },
             "APLEFIT": { name: "APLEFIT", icon: "pic\\aplefit.png", description: "" },
-            "FATLOSS": { name: "FATLOSS", icon: "pic\\fatloss.png", description: "" },
-            "SUPER FIBERS": { name: "HIGH FIBERS", icon: "pic\\highfibers.png", description: "" },
+            "FATLOSS": { name: "FATLOS", icon: "pic\\fatloss.png", description: "" },
+            "SUPER FIBERS": { name: "SUPER FIBERS", icon: "pic\\highfibers.png", description: "" },
             "L-CARNITINE": { name: "L-CARNITINE", icon: "pic\\lcarnitine.png", description: "" },
-            "GLAVOLEAN": { name: "GLAVOLEAN", icon: "pic\\glavolean.png", description: "" },
+            "GLAVOLEAN": { name: "GLAVOLEAN", icon: "pic\\jjj.png", description: "" },
             "APPLE CIDER": { name: "APPLE CIDER", icon: "pic\\applecider.png", description: "" },
             "STEVIA": { name: "STEVIA", icon: "pic\\stev.png", description: "" },
-            "JAMISON MULTI-VITAMIN": { name: "JAMISON MULTI-VITAMIN", icon: "pic\\multi.png", description: "" }
+            "JAMISON MULTI-VITAMIN": { name: "JAMISON MULTI-VITAMIN", icon: "pic\\mmm.png", description: "" }
         };
 
         function startScenario() {
@@ -573,7 +576,7 @@
 
             displayPatient();
             nextStep(2);
-            addPoints(10);
+            addPoints(15);
         }
         function rstartScenario() {
             const name = document.getElementById('learner-name').value.trim();
@@ -590,7 +593,7 @@
 
             displayPatient();
             nextStep(2);
-            addPoints(0);
+            //addPoints(0);
         }
 
         function displayPatient() {
@@ -611,7 +614,7 @@
 
         function proceedToBMI() {
             nextStep(3);
-            addPoints(10);
+            addPoints(0);
         }
 
         function updateBMI() {
@@ -650,7 +653,7 @@
         function proceedToPharmacy() {
             displaySupplements();
             nextStep(4);
-            addPoints(15);
+            addPoints(5);
         }
 
         function reproceedToPharmacy() {
@@ -709,6 +712,14 @@
 
             nextStep(5);
         }
+         function sendToSheet(name, gp, score) {
+      fetch("https://script.google.com/macros/s/AKfycbztd-QQgxUkuQ8tWIwJ-v7gRbLcs5b9l6FVJCWnsI6tbhJj0nHcMNyaqdBk794lqTNF/exec", {
+        method: "POST",
+        mode: "no-cors",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, gp, score, date: new Date().toLocaleString() })
+      });
+    }
 
         function showSuccess() {
             console.log('right')
@@ -719,7 +730,7 @@
             document.getElementById('outcome-message').innerHTML = `
                 <h3>🎉 ممتاز!</h3>
                 <p><strong>${gameState.currentPatient.name}</strong> يشعر بتحسن!</p>
-                <p>"شكرًا يا دكتور, ${gameState.learnerName}! بفضل الله تعالى ثم المكملات التى رشحتها لى أشعر بتحسن الآن"</p>
+                <p>"شكرًا يا دكتور, ${gameState.learnerName}! بفضل الله تعالى أشعر بتحسن الآن"</p>
             `;
 
             document.getElementById('final-feedback').className = 'feedback success';
@@ -728,29 +739,47 @@
                 <p>لقد قمت بترشيح خيارات مناسبة فعلا للعميل.</p>
                 <p><strong>النقاط التى حصلت عليها:</strong> ${gameState.points}</p>
             `;
-
+            sendToSheet(gameState.learnerName, gameState.selectedGroup, gameState.points);
             createCelebration();
             playSuccessSound();
         }
+        // function sendDataToServer() {
+        //     url="https://script.google.com/macros/s/AKfycbztd-QQgxUkuQ8tWIwJ-v7gRbLcs5b9l6FVJCWnsI6tbhJj0nHcMNyaqdBk794lqTNF/exec"
+        //     // Simulate sending data to server
+        //     console.log('Sending data to server...');
+        //     console.log('Learner Name:', gameState.learnerName);
+        //     console.log('Selected Group:', gameState.selectedGroup);
+        //     console.log('Current Patient:', gameState.currentPatient);
+        //     console.log('Selected Supplements:', gameState.selectedSupplements);
+        //     console.log('Points:', gameState.points);
+        // }
+       
 
         function showError() {
             
             const avatar = document.getElementById('result-avatar');
-            avatar.textContent = "😠";
+            avatar.textContent = "😔";
             avatar.classList.add('sad');
 
             setTimeout(() => {
                 avatar.classList.remove('sad');
             }, 500);
 
+            document.getElementById('outcome-message').innerHTML = `
+                <h3>حاول مرة أخرى!</h3>
+                <p><strong>${gameState.currentPatient.name}</strong> لم يشعر بالتحسن المطلوب!</p>
+                <p>" ما رأيك يا دكتور, ${gameState.learnerName}! هل يوجد ترشيحات قد تكون مناسبة أكثر🤔؟."</p>
+            `;
+
             document.getElementById('final-feedback').className = 'feedback error';
             document.getElementById('final-feedback').innerHTML = `
-                <h3>لا يوجد تحسن ملحوظ.. 🤔</h3>
-                <p>المكملات التى رشحتها ربما ليست أنسب خيار لهذة الحالة.</p>
+                <h3>ربما ليست أنسب خيار.. </h3>
+                <p>المكملات التى رشحتها ربما ليست الخيارات الأنسب لهذة الحالة أو لا تقدم الحل المثالى.</p>
                 <button class="btn" onclick="retrySelection()">حاول مرة أخرى 🔄</button>
             `;
 
             document.getElementById('final-feedback').style.display = 'block';
+            
         }
 
         function retrySelection() {
